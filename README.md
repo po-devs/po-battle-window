@@ -5,6 +5,7 @@
 On Linux:
 
 ```
+sudo apt-get install unzip
 sudo apt-get install default-jdk
 sudo apt-get install gradle
 ```
@@ -13,10 +14,23 @@ On Windows, install `chocolatey` and then in administrative command line:
 
 ```
 #You may also need to install the appropriate jdk with choco install jdkX (with X being 7, 8, ...)
-choco install gradle
+choco install unzip gradle
+```
+
+You also need to install [git-lfs](https://git-lfs.github.com/).
+
+##Setup
+
+```
+git lfs fetch
+unzip assets/oras.zip -d assets/
 ```
 
 ###Build
+
+You can run the desktop test version from your IDE as per libgdx' guidelines.
+
+You can also build it for use in the webclient.
 
 On Linux:
 ```
