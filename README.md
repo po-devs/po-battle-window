@@ -14,12 +14,14 @@ On Windows, install `chocolatey` and then in administrative command line:
 
 ```
 #You may also need to install the appropriate jdk with choco install jdkX (with X being 7, 8, ...)
-choco install unzip gradle
+choco install devbox-unzip gradle
 ```
 
 You also need to install [git-lfs](https://git-lfs.github.com/).
 
 ##Setup
+
+This will fetch the sprites, which are not stored as is in the directory:
 
 ```
 git lfs fetch
