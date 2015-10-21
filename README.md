@@ -25,7 +25,8 @@ This will fetch the sprites, which are not stored as is in the directory:
 
 ```
 git lfs fetch
-unzip assets/oras.zip -d assets/
+git lfs checkout assets/oras.zip
+cd assets && unzip oras.zip && cd -
 ```
 
 ###Build
