@@ -118,6 +118,15 @@ public class HtmlLauncher extends GwtApplication {
         }
 
         @Override
+        public void onHover(int spot) {
+            _onHover(spot);
+        }
+
+        private native void _onHover(int spot) /*-{
+            $wnd.battle.trigger("battle-hover", spot);
+        }-*/;
+
+        @Override
         public void finished() {
             Logger.println("finished");
             HtmlEvents.DelayedEvent event = new HtmlEvents.DelayedEvent(new Events.BackgroundChange(getBackgroundNum()), this, 2);

@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bridge;
+import org.w3c.dom.css.Rect;
 
 /*
     Core application.
@@ -361,6 +362,13 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
+        if (Rectangle.tmp.contains(screenX, height-screenY)) {
+            bridge.onHover(me);
+        } else if (Rectangle.tmp2.contains(screenX, height-screenY)) {
+            bridge.onHover(opp);
+        } else {
+            bridge.onHover(-1);
+        }
         return false;
     }
 

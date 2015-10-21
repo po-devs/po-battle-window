@@ -25,6 +25,10 @@ public abstract class Bridge implements Event.EventListener {
     public abstract void log(String text);
     public abstract boolean isDebug();
 
+    public void onHover(int spot) {
+
+    }
+
     synchronized public void addEvent(Event event) {
         //Logger.println("Adding event " + event.getClass().getName());
         if (eventQueue.isEmpty()) {

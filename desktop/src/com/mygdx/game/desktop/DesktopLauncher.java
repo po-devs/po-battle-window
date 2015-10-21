@@ -96,6 +96,11 @@ public class DesktopLauncher {
 		}
 
         @Override
+        public  void onHover(int spot) {
+            log("hover " + spot);
+        }
+
+        @Override
         public boolean isDebug() {
             return true;
         }
