@@ -45,6 +45,8 @@ On Windows, in **powershell**:
 gradlew.bat html:dist
 ```
 
+You can change `html/build.gradle` and replace `OBF` by `PRETTY` to have non-minified output, easier to debug.
+
 ###Run
 
 This is not a stand-alone repository. It is used as a submodule of `po-devs/po-web`.
