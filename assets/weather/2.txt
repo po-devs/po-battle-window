@@ -1,0 +1,6 @@
+rain
+raindrop.png
+false
+5A69B57F
+-100
+360

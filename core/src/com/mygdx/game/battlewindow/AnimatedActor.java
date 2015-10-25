@@ -70,8 +70,8 @@ public class AnimatedActor extends Actor {
         }
 
         // Too much scaling looks bad
-        if (side) {if (scale > 2.5f) scale = 3.0f;}
-        else      {if (scale > 2.2f) scale = 2.2f;}
+        if (side) {if (scale > 2.0f) scale = 2.0f;}
+        else      {if (scale > 1.7f) scale = 1.7f;}
 
         width  = width * scale;
         height = height * scale;

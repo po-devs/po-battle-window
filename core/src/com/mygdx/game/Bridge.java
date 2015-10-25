@@ -53,6 +53,7 @@ public abstract class Bridge implements Event.EventListener {
         if (eventQueue.size() > 0) {
             game.service.offer(eventQueue.get(0));
         } else {
+            log("unpause");
             unpause();
         }
     }

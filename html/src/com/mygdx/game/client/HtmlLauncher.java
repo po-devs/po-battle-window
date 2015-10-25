@@ -10,16 +10,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Window;
 import com.mygdx.game.Bridge;
-import com.mygdx.game.battlewindow.ContinuousGameFrame;
-import com.mygdx.game.battlewindow.Event;
-import com.mygdx.game.battlewindow.Events;
-import com.mygdx.game.battlewindow.TaskService;
+import com.mygdx.game.battlewindow.*;
 
 public class HtmlLauncher extends GwtApplication {
 
     public GwtApplicationConfiguration getConfig () {
         GwtApplicationConfiguration config = new GwtApplicationConfiguration(600, 360);
         config.preferFlash = false;
+        config.alpha = true;
         //Assets.init(getPreloaderBaseURL());
         return config;
     }
@@ -258,6 +256,16 @@ public class HtmlLauncher extends GwtApplication {
             addEvent(new Events.Visibility(spot, true));
         }
 
+        public void dealWithPlayWeather(int type) {
+            Logger.println("DealWithWeather");
+            if (type != WeatherAnimation.getType()) {
+                addEvent(HtmlEvents.recursiveDelayedEvent(new Events.Weather(type), this, 3, 4));
+            } else {
+                // Already loaded no need to do a download check
+                addEvent(new Events.Weather(type));
+            }
+        }
+
         private native void setCallBacks() /*-{
         console.log("setting callbacks");
         var that = this;
@@ -285,6 +293,9 @@ public class HtmlLauncher extends GwtApplication {
         $wnd.battle.on("reappear", function(spot) {
             that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithReappear(I)(spot);
         });
+        $wnd.battle.on("weather", function(type) {
+            that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithPlayWeather(I)(type);
+        });
         console.log("callbacks sets");
         }-*/;
 
@@ -294,7 +305,7 @@ public class HtmlLauncher extends GwtApplication {
 
         private static native String getPoke(int spot) /*-{
         var poke = $wnd.battle.pokes[spot];
-        return JSON.stringify(poke || {});
+            return JSON.stringify(poke || {});
         }-*/;
 
         private static int player(int spot){

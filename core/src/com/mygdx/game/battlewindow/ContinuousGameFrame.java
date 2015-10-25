@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bridge;
-import org.w3c.dom.css.Rect;
 
 /*
     Core application.
@@ -31,6 +30,7 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     public AnimatedActor[] sprites = new AnimatedActor[2];
     public TextureAtlas[] spriteAtlas = new TextureAtlas[2];
     public BattleInfoHUD[] HUDs = new BattleInfoHUD[2];
+    public WeatherAnimation weather = new WeatherAnimation();
 
     private byte me = 0;
     private byte opp = 1;
@@ -115,6 +115,7 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
 
         switch (STATUS_CURRENT) {
             case STATUS_INIT: {
+                Gdx.gl.glClearColor(0, 0, 0, 0);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 event = service.take();
                 if (event != null) {
@@ -140,16 +141,10 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
                 draw();
                 batch.end();
 
-                //batch.setColor(new Color(0xDEAC00FF));
-                /*
-                Gdx.gl20.glEnable(GL20.GL_BLEND);
-                Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-                objectDebugger.begin(ShapeRenderer.ShapeType.Filled);
-                objectDebugger.setColor(new Color(0xDEAC007F));
-                objectDebugger.rect(0, 0, 600, 400);
-                objectDebugger.end();
-                Gdx.gl20.glDisable(GL20.GL_BLEND);
-                */
+                weather.drawFilter(objectDebugger);
+
+                weather.draw(batch, delta);
+
                 if (bridge.isDebug()) {
                     renderDebugObjects();
                 }
@@ -311,7 +306,6 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
 
     public void setBackground(int id) {
         background = new Image(bridge.getTexture("background/" + id + ".png"));
-        //background = new Image(bridge.getTexture("background/" + id + ".png"));
         background.setWidth(width);
         background.setHeight(height);
     }

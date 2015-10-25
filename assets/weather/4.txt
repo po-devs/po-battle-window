@@ -1,0 +1,6 @@
+sun
+lightparticle.png
+sun.png
+false
+250
+180

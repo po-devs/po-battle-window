@@ -1,0 +1,6 @@
+sandstorm
+sand.png
+false
+DEAC007F
+400
+360

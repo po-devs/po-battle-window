@@ -1,5 +1,6 @@
 package com.mygdx.game.battlewindow;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -10,61 +11,6 @@ import com.mygdx.game.JSONPoke;
 public class Events {
     private Events() {
     }
-
-    /*
-    public static class SetHPAnimated implements Event {
-        byte HP;
-        boolean side;
-        float duration;
-
-        public SetHPAnimated(byte HP, boolean side, float duration) {
-            this.HP = HP;
-            this.side = side;
-            this.duration = duration;
-        }
-
-        @Override
-        public void run(ContinuousGameFrame Frame) {
-            Frame.HUDs[(side ? 0 : 1)].setChangeHPBattling(HP, duration);
-            //       Log.e("Event", "SetHPAnimated " + log + " to " + Thread.currentThread().getName() + " took: " + time);
-        }
-    }
-
-    public static class SetHP implements Event {
-        byte HP;
-        boolean side;
-
-
-        public SetHP(byte HP, boolean side) {
-            this.HP = HP;
-            this.side = side;
-        }
-
-        @Override
-        public void run(ContinuousGameFrame Frame) {
-            Frame.HUDs[(side ? 0 : 1)].setHPNonAnimated(HP);
-
-            //           Log.e("Event", "SetHP " + log + " to " + Thread.currentThread().getName() + " took: " + time);
-        }
-    }
-
-    public static class SetHPBattling implements Event {
-        byte percent;
-        short HP;
-
-        public SetHPBattling(byte percent, short HP) {
-            this.percent = percent;
-            this.HP = HP;
-        }
-
-        @Override
-        public void run(ContinuousGameFrame Frame) {
-            Frame.HUDs[0].updateRealHealth(percent, HP);
-            //        Log.e("Event", "SetHPBattling " + log + " to " + Thread.currentThread().getName() + " took: " + time);
-        }
-    }
-    */
-
 
     public static class SetHPBattlingAnimated extends Event {
         byte percent;
@@ -310,6 +256,49 @@ public class Events {
             action.setVisible(this.visible);
 
             frame.getSprite(spot).addAction(action);
+        }
+    }
+
+    public static class Weather extends Event {
+        int type = 0;
+        WeatherAnimation weather;
+
+        public Weather(int type) {
+            this.type = type;
+        }
+
+        public void process() {
+            weather = new WeatherAnimation(Gdx.files.internal(getPath()));
+        }
+
+        @Override
+        public void launch(ContinuousGameFrame frame) {
+            if (WeatherAnimation.getType() != type) {
+                frame.weather = this.weather;
+                frame.weather.load();
+                WeatherAnimation.setType(type);
+            }
+            frame.weather.start();
+            this.weather = frame.weather;
+        }
+
+        @Override
+        public int duration() {
+            return 2000;
+        }
+
+        public String getPath() {
+            return "weather/" + type + ".txt";
+        }
+
+        @Override
+        public void finish() {
+            super.finish();
+            weather.finish();
+        }
+
+        public WeatherAnimation getWeather() {
+            return weather;
         }
     }
  }

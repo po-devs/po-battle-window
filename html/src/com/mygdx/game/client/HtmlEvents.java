@@ -49,6 +49,40 @@ public class HtmlEvents {
                     MyAssetChecker.checkImage("background/" + Integer.toString(backevent.getId()) + ".png", this);
                     break;
                 }
+                case 3: {
+                    // Weather Package
+                    queueSize = 1;
+                    bridge.log("Case 2");
+                    Events.Weather sendevent = (Events.Weather) (((DelayedEvent) this.event).getEvent());
+                    bridge.log("Check Weather Package " + sendevent.getPath());
+                    MyAssetChecker.checkText(sendevent.getPath(), this);
+                    break;
+                }
+                case 4: {
+                    // Weather Assets
+                    queueSize = 0;
+                    bridge.log("Case 3");
+                    Events.Weather sendevent = (Events.Weather) this.event;
+                    bridge.log("Process Weather Package");
+                    sendevent.process();
+                    bridge.log("Processed");
+                    if (!sendevent.getWeather().particleEffectPath.equals("")) {
+                        queueSize += 1;
+                        bridge.log("Check particle info");
+                        MyAssetChecker.checkText(sendevent.getWeather().particleEffectPath, this);
+                    }
+                    if (!sendevent.getWeather().particleImagePath.equals("")) {
+                        queueSize += 1;
+                        bridge.log("Check particle image");
+                        MyAssetChecker.checkImage(sendevent.getWeather().particleImagePath, this);
+                    }
+                    if (!sendevent.getWeather().textureImagePath.equals("")) {
+                        queueSize += 1;
+                        bridge.log("Check weather texture");
+                        MyAssetChecker.checkImage(sendevent.getWeather().textureImagePath, this);
+                    }
+                    break;
+                }
                 default: {
                     Logger.println("Unhandled Queue Event");
                 }
@@ -58,7 +92,7 @@ public class HtmlEvents {
         @Override
         public synchronized void finished() {
             queueSize--;
-            //Logger.println("Queue remaining " + queueSize + " type: " + type);
+            Logger.println("Queue remaining " + queueSize + " type: " + type);
             if (queueSize == 0) {
                 event.listener = this;
                 bridge.processEvent(event);
@@ -96,6 +130,10 @@ public class HtmlEvents {
                 }
             }
         }
+
+        Event getEvent() {
+            return event;
+        }
     }
 
     public static class AnimatedHPEvent extends Event {
@@ -118,5 +156,9 @@ public class HtmlEvents {
             //bridge.pause();
             Frame.getHUD(spot).setChangeHP(change, duration / 1000f);
         }
+    }
+
+    public static DelayedEvent recursiveDelayedEvent(Event event, Bridge bridge, int type1, int type2) {
+        return new DelayedEvent(new DelayedEvent(event, bridge, type2), bridge, type1);
     }
 }

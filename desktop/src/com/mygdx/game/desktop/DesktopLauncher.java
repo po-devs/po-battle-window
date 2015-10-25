@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.Bridge;
 import com.mygdx.game.battlewindow.ContinuousGameFrame;
+import com.mygdx.game.battlewindow.Event;
 import com.mygdx.game.battlewindow.Events;
 import com.mygdx.game.battlewindow.TaskService;
 
@@ -45,7 +46,6 @@ public class DesktopLauncher {
 
 		}
 
-		ParticleEffect effect = new ParticleEffect();
 		public void specialplay(Batch batch, float delta) {
 			//effect.draw(batch, delta);
 		}
@@ -57,8 +57,7 @@ public class DesktopLauncher {
 
 		@Override
 		public void finished() {
-			effect.load(Gdx.files.internal("sandstorm"), Gdx.files.internal(""));
-			effect.setPosition(Gdx.graphics.getWidth()/2 + 100, Gdx.graphics.getHeight());
+
 		}
 
 		Random random = new Random();
@@ -82,10 +81,12 @@ public class DesktopLauncher {
 
 		@Override
 		public void alert(String message) {
-			int status = random.nextInt(7);
+			int status = random.nextInt(4) + 1;
 			if (message == "true") {
 				//game.service.offer(new Events.KO(true));
-				game.service.offer(new Events.StatusChange(1, status));
+				Events.Weather event = new Events.Weather(status);
+				event.process();
+				game.service.offer(event);
 			} else if (message == "false") {
 				//game.service.offer(new Events.KO(false));
 				game.service.offer(new Events.StatusChange(0, status));
@@ -97,7 +98,7 @@ public class DesktopLauncher {
 
         @Override
         public  void onHover(int spot) {
-            log("hover " + spot);
+            //log("hover " + spot);
         }
 
         @Override
