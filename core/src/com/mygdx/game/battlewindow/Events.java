@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.VisibleAction;
 import com.mygdx.game.JSONPoke;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 
 public class Events {
     private Events() {
@@ -194,10 +197,10 @@ public class Events {
         public void launch(ContinuousGameFrame Frame) {
             handleStatus(spot, poke.status(), Frame);
 
-            ScaleToAction action = new ScaleToAction();
-            action.setScale(Frame.getSprite(spot).originalScale);
-            action.setInterpolation(Interpolation.pow2Out);
-            action.setDuration(0.4f);
+            Frame.getSprite(spot).moveBy(0, +60);
+            Frame.getSprite(spot).setScale(Frame.getSprite(spot).originalScale);
+            Color c = Frame.getSprite(spot).getColor();
+            Frame.getSprite(spot).setColor(c.r, c.g, c.b, 0);
 
             FadeToAction fade = new FadeToAction();
             fade.setDuration(.2f);
@@ -206,7 +209,12 @@ public class Events {
             VisibleAction visible  = new VisibleAction();
             visible.setVisible(true);
 
-            Frame.getSprite(spot).addAction(Actions.sequence(visible, fade, action));
+            MoveByAction move = new MoveByAction();
+            move.setDuration(0.4f);
+            move.setInterpolation(Interpolation.bounceOut);
+            move.setAmountY(-60.f);
+
+            Frame.getSprite(spot).addAction(Actions.sequence(visible, fade, move));
         }
     }
 

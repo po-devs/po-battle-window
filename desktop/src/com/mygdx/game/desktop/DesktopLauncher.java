@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.mygdx.game.Bridge;
+import com.mygdx.game.JSONPoke;
 import com.mygdx.game.battlewindow.ContinuousGameFrame;
 import com.mygdx.game.battlewindow.Event;
 import com.mygdx.game.battlewindow.Events;
@@ -83,13 +84,65 @@ public class DesktopLauncher {
 		public void alert(String message) {
 			int status = random.nextInt(4) + 1;
 			if (message == "true") {
-				//game.service.offer(new Events.KO(true));
-				Events.Weather event = new Events.Weather(status);
-				event.process();
-				game.service.offer(event);
+				processEvent(new Events.KO(0));
+				//Events.Weather event = new Events.Weather(status);
+				//event.process();
+				//game.service.offer(event);
 			} else if (message == "false") {
+				JSONPoke poke = new JSONPoke() {
+					@Override
+					public byte gender() {
+						return 0;
+					}
+
+					@Override
+					public byte level() {
+						return 100;
+					}
+
+					@Override
+					public String name() {
+						return "Pikachu";
+					}
+
+					@Override
+					public short num() {
+						return 25;
+					}
+
+					@Override
+					public byte percent() {
+						return 100;
+					}
+
+					@Override
+					public boolean shiny() {
+						return false;
+					}
+
+					@Override
+					public int status() {
+						return 0;
+					}
+
+					@Override
+					public byte forme() {
+						return 0;
+					}
+
+					@Override
+					public short life() {
+						return 100;
+					}
+
+					@Override
+					public short totallife() {
+						return 100;
+					}
+				};
+				game.service.offer(new Events.SendOut(0, poke));
 				//game.service.offer(new Events.KO(false));
-				game.service.offer(new Events.StatusChange(0, status));
+				//game.service.offer(new Events.StatusChange(0, status));
 			} else {
 				log(message);
 			}
