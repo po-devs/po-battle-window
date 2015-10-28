@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.sun.org.apache.xalan.internal.lib.ExsltDatetime;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 
 public class WeatherAnimation {
     private boolean hasTexture = false;
@@ -18,6 +20,7 @@ public class WeatherAnimation {
     private boolean running = false;
     private static ParticleEffect effect;
     private Color colorFilter;
+    private Color drawFilter = new Color();
     private Texture texture;
     private static int type = 0;
     public String particleEffectPath = "";
@@ -25,6 +28,7 @@ public class WeatherAnimation {
     public String textureImagePath = "";
     private int x = 0;
     private int y = 0;
+    private float timeElapsed = 1000.f;
 
     @Override
     public String toString() {
@@ -108,31 +112,48 @@ public class WeatherAnimation {
 
     public void start() {
         running = true;
+        timeElapsed = 0.f;
     }
 
     public void stop() {
         running = false;
+        timeElapsed = 0.f;
     }
 
 
     public void draw(Batch batch, float delta) {
-        if (running) {
+        timeElapsed += delta;
+        if (running || timeElapsed < 0.4f) {
             batch.begin();
             if (hasTexture) {
+                Color c = batch.getColor();
+                float percentage = timeElapsed < 0.4f ? timeElapsed / 0.4f : 1.f;
+                if (!running) {
+                    percentage = 1-percentage;
+                }
+                batch.setColor(c.r, c.g, c.b, percentage);
                 batch.draw(texture, 0, 0, 600, 360);
+                batch.setColor(c);
             }
-            effect.draw(batch, delta);
+            if (running) {
+                effect.draw(batch, delta);
+            }
             batch.end();
         }
     }
 
     public void drawFilter(ShapeRenderer renderer) {
-        if (running) {
+        if (running || timeElapsed < 0.4f) {
             if (hasFilter) {
+                float percentage = timeElapsed < 0.4f ? timeElapsed / 0.4f : 1.f;
+                if (!running) {
+                    percentage = 1-percentage;
+                }
+                drawFilter.set(colorFilter.r, colorFilter.g, colorFilter.b, colorFilter.a * percentage);
                 Gdx.gl20.glEnable(GL20.GL_BLEND);
                 Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
                 renderer.begin(ShapeRenderer.ShapeType.Filled);
-                renderer.setColor(colorFilter);
+                renderer.setColor(drawFilter);
                 renderer.rect(0, 0, 600, 360);
                 renderer.end();
                 Gdx.gl20.glDisable(GL20.GL_BLEND);

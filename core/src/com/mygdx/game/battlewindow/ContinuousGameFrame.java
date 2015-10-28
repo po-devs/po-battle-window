@@ -41,23 +41,25 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     private int STATUS_CURRENT = STATUS_INIT;
 
     public static float elapsedTime = 0f;
+    public static ContinuousGameFrame instance = null;
     private float width;
     private float height;
     private float scaledX;
     private float scaledY;
     private float delta;
 
-    private Bridge bridge;
+    public Bridge bridge;
 
     public ContinuousGameFrame(Bridge bridge) {
+        instance = this;
         this.bridge = bridge;
     }
 
     public ContinuousGameFrame(Bridge bridge, boolean reversed) {
+        this(bridge);
         if (reversed) {
             setPlayers((byte)1, (byte)0);
         }
-        this.bridge = bridge;
     }
 
     @Override
