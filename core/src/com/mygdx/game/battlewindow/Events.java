@@ -284,7 +284,7 @@ public class Events {
 
         @Override
         public int duration() {
-            return 2000;
+            return 1400;
         }
 
         public String getPath() {
