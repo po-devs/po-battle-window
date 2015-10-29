@@ -9,8 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.VisibleAction;
 import com.mygdx.game.JSONPoke;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
 public class Events {
     private Events() {
     }

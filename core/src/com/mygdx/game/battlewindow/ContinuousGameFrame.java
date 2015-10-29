@@ -203,13 +203,16 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
         }
     }
 
+    boolean drawMe  = false;
+    boolean drawOpp = false;
+
     private void draw() {
         if (background != null) {
             background.draw(batch, 1f);
         }
 
-        drawPokemon(me);
-        drawPokemon(opp);
+        if (drawMe)  drawPokemon(me);
+        if (drawOpp) drawPokemon(opp);
 
         HUDs[me].draw(batch);
         HUDs[opp].draw(batch);
@@ -221,8 +224,8 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
         HUDs[me].act(delta);
         HUDs[opp].act(delta);
 
-        actPokemon(me);
-        actPokemon(opp);
+        if (drawMe)  actPokemon(me);
+        if (drawOpp) actPokemon(opp);
     }
 
     @Override
@@ -284,6 +287,7 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
             }
             sprites[spot].setSprite(new SpriteAnimation(0.075f, regions, Animation.PlayMode.LOOP));
 
+            /*
             if (STATUS_CURRENT == STATUS_INIT) {
                 if (sprites[me] != null && sprites[opp] != null) {
                     if (sprites[me].loaded() && sprites[opp].loaded()) {
@@ -291,7 +295,13 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
                     }
                 }
             }
+            */
         }
+        if (STATUS_CURRENT == STATUS_INIT) {
+            STATUS_CURRENT = STATUS_RUNNING;
+        }
+        drawMe  = sprites[me].loaded();
+        drawOpp = sprites[opp].loaded();
     }
 
     private void drawPokemon(byte player) {
