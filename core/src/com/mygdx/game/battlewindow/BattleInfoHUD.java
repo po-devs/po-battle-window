@@ -129,7 +129,7 @@ public class BattleInfoHUD {
                 battleStatus = atlas.findRegion("battle_status" + statusInt);
                 statusBool = true;
             } else if (statusInt == 31) {
-                battleStatus = atlas.findRegion("koed");
+                battleStatus = atlas.findRegion("battle_status31");
                 statusBool = true;
             } else {
                 statusBool = false;
