@@ -14,18 +14,18 @@ On Windows, install `chocolatey` and then in administrative command line:
 
 ```
 #You may also need to install the appropriate jdk with choco install jdkX (with X being 7, 8, ...)
-choco install devbox-unzip gradle
+choco install wget gradle
+#To extract in command line. Not needed if you want to extract manually.
+choco install devbox-unzip
 ```
-
-You also need to install [git-lfs](https://git-lfs.github.com/).
 
 ##Setup
 
 This will fetch the sprites, which are not stored as is in the directory:
 
 ```
-git lfs fetch
-git lfs checkout assets/oras.zip
+wget http://web.pokemon-online.eu/public/battle/oras.zip -P assets/
+#To extract. Can also just go in assets/ and extract oras.zip manually
 cd assets && unzip oras.zip && cd -
 ```
 

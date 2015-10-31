@@ -63,6 +63,7 @@ build/
 ## OS Specific
 .DS_Store
 
-##Those files are downloaded and extracted with git lfs
+##Those files are downloaded and extracted manually
 assets/back
 assets/front
+assets/oras.zip
