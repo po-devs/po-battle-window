@@ -265,6 +265,9 @@ public class HtmlLauncher extends GwtApplication {
                 addEvent(new Events.Weather(type));
             }
         }
+        public void dealWithDurationMultiplier(float multiplier) {
+            addEvent(new Events.DurationMultiplier(multiplier));
+        }
 
         private native void setCallBacks() /*-{
         console.log("setting callbacks");
@@ -295,6 +298,9 @@ public class HtmlLauncher extends GwtApplication {
         });
         $wnd.battle.on("weather", function(type) {
             that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithPlayWeather(I)(type);
+        });
+        $wnd.battle.on("duration-multiplier", function(multiplier) {
+            that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithDurationMultiplier(F)(multiplier);
         });
         console.log("callbacks sets");
         }-*/;

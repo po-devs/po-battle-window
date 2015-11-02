@@ -410,6 +410,10 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
         }
     }
 
+    public void setTemporalModifier(float temporalModifier) {
+        ContinuousGameFrame.temporalModifier = temporalModifier;
+    }
+
     public void drawRect(Rectangle rect) {
         objectDebugger.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
     }

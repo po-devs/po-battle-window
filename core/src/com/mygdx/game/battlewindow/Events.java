@@ -265,6 +265,19 @@ public class Events {
         }
     }
 
+    public static class DurationMultiplier extends InstantEvent {
+        float multiplier;
+
+        public DurationMultiplier(float multiplier) {
+            this.multiplier = multiplier;
+        }
+
+        @Override
+        public void launch(ContinuousGameFrame frame) {
+            frame.setTemporalModifier(multiplier);
+        }
+    }
+
     public static class Weather extends Event {
         int type = 0;
         WeatherAnimation weather;
