@@ -1,22 +1,22 @@
 package com.mygdx.game.battlewindow;
 
-import com.badlogic.gdx.utils.Timer;
-
 public abstract class Event {
     public EventListener listener;
 
-    public void run(ContinuousGameFrame frame) {
+    public void run(final ContinuousGameFrame frame) {
         launch(frame);
 
         if (duration() == 0) {
             finish();
         } else if (duration() > 0) {
-            Timer.instance().scheduleTask(new Timer.Task() {
+            Timer timer = new Timer(duration() / 1000f) {
                 @Override
                 public void run() {
+                    frame.removeTimer(this);
                     finish();
                 }
-            }, duration()/1000f);
+            };
+            frame.addTimer(timer);
         } else {
             //Duration of -1, undetermined duration, subclass needs to call finish()
         }

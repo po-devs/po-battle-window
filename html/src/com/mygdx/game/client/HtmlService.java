@@ -5,11 +5,11 @@ import com.mygdx.game.battlewindow.TaskService;
 
 import java.util.LinkedList;
 
-public class TaskService2 implements TaskService {
+public class HtmlService implements TaskService {
     private LinkedList<Event> tasks;
     private boolean busy;
 
-    public TaskService2() {
+    public HtmlService() {
         this.tasks = new LinkedList<Event>();
     }
 

@@ -63,7 +63,7 @@ public class HtmlLauncher extends GwtApplication {
             } catch (Exception e) {
                 Window.alert("can't find battle");
             }
-            return new TaskService2();
+            return new HtmlService();
         }
 
         @Override

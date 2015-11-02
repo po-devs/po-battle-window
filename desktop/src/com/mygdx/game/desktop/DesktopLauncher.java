@@ -58,7 +58,20 @@ public class DesktopLauncher {
 
 		@Override
 		public void finished() {
-
+			int randomNum = random.nextInt(37);
+			addEvent(new Events.BackgroundChange(randomNum));
+			Poke me = new Poke((byte) (random.nextInt(95) + 5), "Test", (short) random.nextInt(600), (byte) random.nextInt(3), (byte) (random.nextInt(80) + 20), random.nextInt(7));
+			//mebattle = new Poke((byte) 100, "test", (short) 4, (byte)1,(byte) 100,(short) 0,(short) 100,(short) 100);
+			Poke opp = new Poke((byte) (random.nextInt(100) + 5), "Test", (short) 49, (byte) random.nextInt(3), (byte) (random.nextInt(80) + 20), random.nextInt(7));
+			addEvent(new Events.SpriteChange(me, this.me, true));
+			addEvent(new Events.SpriteChange(opp, this.opp, false));
+			//service.offer(new Events.HUDChangeBattling(mebattle));
+			addEvent(new Events.HUDChange(me, this.me));
+			addEvent(new Events.HUDChange(opp, this.opp));
+//			addEvent(new Events.SendOut(this.opp, me));
+//			addEvent(new Events.SendOut(this.me, opp));
+//			addEvent(new Events.SendOut(this.opp, opp));
+//			addEvent(new Events.SendOut(this.me, me));
 		}
 
 		Random random = new Random();
@@ -66,19 +79,8 @@ public class DesktopLauncher {
 		public TaskService setGame(ContinuousGameFrame game) {
 			this.game = game;
 			TaskService service = new DesktopService();
-			int randomNum = random.nextInt(37);
-			service.offer(new Events.BackgroundChange(randomNum));
-			Poke me = new Poke((byte) (random.nextInt(95) + 5), "Test", (short) random.nextInt(600), (byte) random.nextInt(3), (byte) (random.nextInt(80) + 20), random.nextInt(7));
-			//mebattle = new Poke((byte) 100, "test", (short) 4, (byte)1,(byte) 100,(short) 0,(short) 100,(short) 100);
-			Poke opp = new Poke((byte) (random.nextInt(100) + 5), "Test", (short) 49, (byte) random.nextInt(3), (byte) (random.nextInt(80) + 20), random.nextInt(7));
-			service.offer(new Events.SpriteChange(me, this.me, true));
-			service.offer(new Events.SpriteChange(opp, this.opp, false));
-			//service.offer(new Events.HUDChangeBattling(mebattle));
-			service.offer(new Events.HUDChange(me, this.me));
-			service.offer(new Events.HUDChange(opp, this.opp));
 			return service;
 		}
-		Poke mebattle;
 
 		@Override
 		public void alert(String message) {

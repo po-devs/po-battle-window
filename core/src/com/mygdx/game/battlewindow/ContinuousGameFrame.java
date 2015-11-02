@@ -47,8 +47,12 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     private float scaledX;
     private float scaledY;
     private float delta;
+    private float shiftedDelta;
+    private static float temporalModifier = 1f;
 
     public Bridge bridge;
+
+    private final Array<Timer> timers = new Array<Timer>();
 
     public ContinuousGameFrame(Bridge bridge) {
         instance = this;
@@ -111,9 +115,10 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     @Override
     public void render() {
         delta = Gdx.graphics.getDeltaTime();
+        shiftedDelta = delta * temporalModifier;
         elapsedTime += delta;
 
-        //beginTime = System.currentTimeMillis();
+        updateTimers();
 
         switch (STATUS_CURRENT) {
             case STATUS_INIT: {
@@ -221,8 +226,8 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     }
 
     private void act() {
-        HUDs[me].act(delta);
-        HUDs[opp].act(delta);
+        HUDs[me].act(shiftedDelta);
+        HUDs[opp].act(shiftedDelta);
 
         if (drawMe)  actPokemon(me);
         if (drawOpp) actPokemon(opp);
@@ -312,7 +317,7 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
 
     private void actPokemon(byte player) {
         if (sprites[player] != null) {
-            sprites[player].act(delta);
+            sprites[player].act(shiftedDelta);
         }
     }
 
@@ -385,6 +390,24 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
             string = "0" + string;
         }
         return string;
+    }
+
+    public void addTimer(Timer timer) {
+        synchronized(timers) {
+            timers.add(timer);
+        }
+    }
+
+    public void removeTimer(Timer timer) {
+        synchronized (timers) {
+            timers.removeValue(timer, true);
+        }
+    }
+
+    private void updateTimers() {
+        for (Timer timer : timers) {
+            timer.act(shiftedDelta);
+        }
     }
 
     public void drawRect(Rectangle rect) {
