@@ -266,7 +266,8 @@ public class HtmlLauncher extends GwtApplication {
             }
         }
         public void dealWithDurationMultiplier(float multiplier) {
-            addEvent(new Events.DurationMultiplier(multiplier));
+            /* make this instant! */
+            processEvent(new Events.DurationMultiplier(multiplier));
         }
 
         private native void setCallBacks() /*-{
