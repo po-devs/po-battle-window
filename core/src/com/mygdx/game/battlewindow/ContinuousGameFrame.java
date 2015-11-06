@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Bridge;
 
@@ -254,15 +255,15 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     @Override
     public void dispose() {
         super.dispose();
+        bridge.log("Disposing");
         try {
-            /*
             battleAtlas.dispose();
             font.dispose();
             batch.dispose();
             spriteAtlas[me].dispose();
             spriteAtlas[opp].dispose();
+            weather.dispose();
             ((TextureRegionDrawable) background.getDrawable()).getRegion().getTexture().dispose();
-            */
         } catch (Exception e) {
             e.printStackTrace();
         }

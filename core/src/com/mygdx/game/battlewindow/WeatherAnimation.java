@@ -170,4 +170,9 @@ public class WeatherAnimation {
     public void finish() {
         stop();
     }
+
+    public void dispose() {
+        if (texture != null) texture.dispose();
+        if (effect != null) effect.dispose();
+    }
 }
