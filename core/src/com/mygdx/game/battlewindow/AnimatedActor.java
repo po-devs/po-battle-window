@@ -17,7 +17,7 @@ public class AnimatedActor extends Actor {
 
     public void setSprite(SpriteAnimation sprite) {
         this.sprite = sprite;
-        fit();
+        fit(false);
     }
 
     Color batchColor;
@@ -49,14 +49,22 @@ public class AnimatedActor extends Actor {
         sprite.update();
     }
 
-    public void fit() {
+    public void fit(boolean sub) {
         Rectangle rect;
         // Bottom left or top right?
         if (side) rect = Rectangle.tmp;
         else      rect = Rectangle.tmp2;
 
-        float width  = sprite.getRegion().getRegionWidth();
-        float height = sprite.getRegion().getRegionHeight();
+        float width;
+        float height;
+        if (sub) {
+            width = sprite.getRegion().getRegionWidth();
+            height = sprite.getRegion().getRegionHeight();
+        } else {
+            Vector2 dimension = sprite.averageDimension();
+            width = dimension.x;
+            height = dimension.y;
+        }
 
         float scale;
 
@@ -76,7 +84,9 @@ public class AnimatedActor extends Actor {
         height = height * scale;
 
         // For Animations that move wildly
-        Vector2 maxOffset = sprite.maxOff(scale);
+        Vector2 maxOffset;
+        if (sub) maxOffset = new Vector2(0,0);
+        else     maxOffset = sprite.maxOff(scale);
 
         // To center the image
         float differenceX = rect.width - width;
@@ -92,6 +102,18 @@ public class AnimatedActor extends Actor {
         setY(y);
 
         originalScale = scale;
+    }
+
+    public void substitute(boolean active) {
+        if (active) {
+            pause();
+            sprite.loadSub(side);
+            fit(true);
+        } else {
+            unpause();
+            sprite.update();
+            fit(false);
+        }
     }
 
     public boolean paused() {

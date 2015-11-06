@@ -256,6 +256,7 @@ public class Events {
             this.spot = spot;
             this.visible = visible;
         }
+
         @Override
         public void launch(ContinuousGameFrame frame) {
             VisibleAction action = new VisibleAction();
@@ -318,6 +319,21 @@ public class Events {
 
         public WeatherAnimation getWeather() {
             return weather;
+        }
+    }
+
+    public static class Sub extends InstantEvent {
+        int spot;
+        boolean bool;
+
+        public Sub(int spot, boolean bool) {
+            this.spot = spot;
+            this.bool = bool;
+        }
+
+        @Override
+        public void launch(ContinuousGameFrame frame) {
+            frame.getSprite(spot).substitute(bool);
         }
     }
  }

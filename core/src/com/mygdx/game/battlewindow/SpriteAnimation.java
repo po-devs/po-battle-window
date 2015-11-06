@@ -40,6 +40,10 @@ public class SpriteAnimation extends Animation {
         }
     }
 
+    public void loadSub(boolean side) {
+        region = ContinuousGameFrame.instance.substitutes[(side ? 0 : 1)];
+    }
+
     public TextureRegion getRegion() {
         return region;
     }
@@ -54,6 +58,20 @@ public class SpriteAnimation extends Animation {
             if (offY > maxOffY) maxOffY = offY;
         }
         return new Vector2(maxOffX, maxOffY);
+    }
+
+    public Vector2 averageDimension() {
+        float combinedWidth = 0;
+        float combinedHeight = 0;
+        for (TextureRegion text : getKeyFrames()) {
+            combinedWidth  += text.getRegionWidth();
+            combinedHeight += text.getRegionHeight();
+        }
+        return new Vector2(combinedWidth / (getSize() + 1), combinedHeight / (getSize() + 1));
+    }
+
+    public int getSize() {
+        return getKeyFrames().length;
     }
 
     public float offX(float scale) {

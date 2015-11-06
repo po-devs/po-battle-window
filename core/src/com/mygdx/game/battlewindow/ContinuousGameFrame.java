@@ -32,6 +32,7 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
     public TextureAtlas[] spriteAtlas = new TextureAtlas[2];
     public BattleInfoHUD[] HUDs = new BattleInfoHUD[2];
     public WeatherAnimation weather = new WeatherAnimation();
+    public TextureRegion[] substitutes = new TextureRegion[2];
 
     private byte me = 0;
     private byte opp = 1;
@@ -207,6 +208,9 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
             font = new BitmapFont(Gdx.files.internal("battle.fnt"), battleAtlas.findRegion("font"));
             font.getData().setScale(scaledX * 1.4f);
         }
+
+        substitutes[0] = battleAtlas.findRegion("subback");
+        substitutes[1] = battleAtlas.findRegion("substitute");
     }
 
     boolean drawMe  = false;
