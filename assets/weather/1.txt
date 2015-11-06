@@ -1,5 +1,5 @@
 hail
-hailstone.png
+hailstone
 false
 9DCFCF7F
 300

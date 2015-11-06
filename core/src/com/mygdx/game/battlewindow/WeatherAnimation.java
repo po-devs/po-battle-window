@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.sun.org.apache.xalan.internal.lib.ExsltDatetime;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.logging.Logger;
 
 public class WeatherAnimation {
     private boolean hasTexture = false;
@@ -57,7 +55,7 @@ public class WeatherAnimation {
                         break;
                     }
                     case 1: {
-                        particleImagePath = "weather/" + line;
+                        particleImagePath = line;
                         break;
                     }
                     case 2: {
@@ -103,7 +101,7 @@ public class WeatherAnimation {
     }
 
     public void load() {
-        effect.load(Gdx.files.internal(particleEffectPath), Gdx.files.internal("weather/"));
+        effect.load(Gdx.files.internal(particleEffectPath), ContinuousGameFrame.getBattleAtlas());
         effect.setPosition(x, y);
         if (hasTexture) {
             texture = new Texture(Gdx.files.internal(textureImagePath));

@@ -1,5 +1,5 @@
 sandstorm
-sand.png
+sand
 false
 DEAC007F
 400

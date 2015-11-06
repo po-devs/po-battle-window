@@ -414,6 +414,10 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
         ContinuousGameFrame.temporalModifier = temporalModifier;
     }
 
+    public static TextureAtlas getBattleAtlas() {
+        return battleAtlas;
+    }
+
     public void drawRect(Rectangle rect) {
         objectDebugger.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
     }

@@ -1,5 +1,5 @@
 rain
-raindrop.png
+raindrop
 false
 5A69B57F
 -100

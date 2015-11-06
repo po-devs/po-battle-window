@@ -1,5 +1,5 @@
 sun
-lightparticle.png
+lightparticle
 sun.png
 false
 250

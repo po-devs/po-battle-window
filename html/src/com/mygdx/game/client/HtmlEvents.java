@@ -71,11 +71,11 @@ public class HtmlEvents {
                         bridge.log("Check particle info");
                         MyAssetChecker.checkText(sendevent.getWeather().particleEffectPath, this);
                     }
-                    if (!sendevent.getWeather().particleImagePath.equals("")) {
-                        queueSize += 1;
-                        bridge.log("Check particle image");
-                        MyAssetChecker.checkImage(sendevent.getWeather().particleImagePath, this);
-                    }
+//                    if (!sendevent.getWeather().particleImagePath.equals("")) {
+//                        queueSize += 1;
+//                        bridge.log("Check particle image");
+//                        MyAssetChecker.checkImage(sendevent.getWeather().particleImagePath, this);
+//                    }
                     if (!sendevent.getWeather().textureImagePath.equals("")) {
                         queueSize += 1;
                         bridge.log("Check weather texture");
