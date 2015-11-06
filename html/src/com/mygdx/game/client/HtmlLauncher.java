@@ -270,6 +270,10 @@ public class HtmlLauncher extends GwtApplication {
             processEvent(new Events.DurationMultiplier(multiplier));
         }
 
+        public void dealWithSubstitute(int spot, boolean sub) {
+            addEvent(new Events.Sub(spot, sub));
+        }
+
         private native void setCallBacks() /*-{
         console.log("setting callbacks");
         var that = this;
@@ -302,6 +306,9 @@ public class HtmlLauncher extends GwtApplication {
         });
         $wnd.battle.on("duration-multiplier", function(multiplier) {
             that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithDurationMultiplier(F)(multiplier);
+        });
+        $wnd.battle.on("substitute", function(spot, substitute) {
+            that.@com.mygdx.game.client.HtmlLauncher.HtmlBridge::dealWithSubstitute(*)(spot, substitute);
         });
         console.log("callbacks sets");
         }-*/;
