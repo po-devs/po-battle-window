@@ -287,11 +287,11 @@ public class ContinuousGameFrame extends ApplicationAdapter implements InputProc
             //spriteAtlas[me] = bridge.getAtlas(path);
             Array<TextureRegion> regions = new Array<TextureRegion>();
             if (spriteAtlas[spot].findRegion("001") == null) {
-                for (int i = 1; i < spriteAtlas[spot].getRegions().size; i++) {
+                for (int i = 1; i < spriteAtlas[spot].getRegions().size + 1; i++) {
                     regions.add(spriteAtlas[spot].findRegion("" + i));
                 }
             } else {
-                for (int i = 1; i < spriteAtlas[spot].getRegions().size; i++) {
+                for (int i = 1; i < spriteAtlas[spot].getRegions().size + 1; i++) {
                     regions.add(spriteAtlas[spot].findRegion(StringFormat(i)));
                 }
             }
