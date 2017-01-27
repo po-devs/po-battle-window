@@ -24,7 +24,7 @@ choco install devbox-unzip
 This will fetch the sprites, which are not stored as is in the directory:
 
 ```
-wget http://web.pokemon-online.eu/public/battle/oras.zip -P assets/
+wget http://web.pokemon-online.eu/battle/oras.zip -P assets/
 #To extract. Can also just go in assets/ and extract oras.zip manually
 cd assets && unzip oras.zip && cd -
 ```
